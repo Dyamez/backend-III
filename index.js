@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
+const serverless = require("serverless-http");
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
@@ -13,6 +14,8 @@ app.use(cors());
 mongoose.connect(
   "mongodb+srv://dyamez:VRLDCepNOSJJCmBy@cluster0.jog0s17.mongodb.net/farmfriends"
 );
+
+const index = express();
 
 // MiddleWare
 const fetchuser = async (req, res, next) => {
@@ -255,3 +258,5 @@ app.listen(port, (error) => {
   if (!error) console.log("Server Running on port " + port);
   else console.log("Error : ", error);
 });
+
+module.exports.handler = serverless(index);
